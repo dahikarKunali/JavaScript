@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Array Max & Min Finder with Array Methods</title>
+<!-- Google Fonts for better typography -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    max-width: 900px;
+    width: 100%;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+  }
+
+  /* Style for main form */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    color: #555;
+  }
+
+  input[type="text"] {
+    padding: 12px 15px;
+    font-size: 1em;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    outline: none;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 14px;
+    font-size: 1.1em;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+
+  /* Style for array display and methods */
+  .array-section {
+    margin-top: 30px;
+  }
+
+  #arrayDisplay {
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+  .methods-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .method-box {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 10px;
+    flex: 1 1 200px;
+  }
+
+  .method-box h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .method-box input[type="text"] {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+  }
+
+  .method-box button {
+    width: 100%;
+  }
+
+  /* Style for results display */
+  .result {
+    margin-top: 30px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+  }
+
+  .result h2 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .result p {
+    font-size: 1.1em;
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+  }
+
+  @media(max-width: 900px){
+    body {
+      padding: 10px;
+    }
+    .container {
+      padding: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>Array Max & Min Finder with Array Methods</h1>
+
+<!-- Main array input form -->
+<form id="arrayForm">
+  <label for="numbers">Enter numbers separated by commas:</label>
+  <input type="text" id="numbers" name="numbers" placeholder="e.g., 25, 10, 45, 5, 30, 15" required />
+  <button type="submit">Initialize Array</button>
+</form>
+
+<!-- Display current array -->
+<div class="array-section">
+  <h2>Current Array:</h2>
+  <p id="arrayDisplay">[]</p>
+</div>
+
+<!-- Array methods controls -->
+<div class="methods-container">
+
+  <!-- Push -->
+  <div class="method-box">
+    <h3>Push</h3>
+    <input type="text" id="pushInput" placeholder="Add element"/>
+    <button id="pushBtn">Push Element</button>
+  </div>
+
+  <!-- Pop -->
+  <div class="method-box">
+    <h3>Pop</h3>
+    <button id="popBtn">Pop Element</button>
+  </div>
+
+  <!-- Shift -->
+  <div class="method-box">
+    <h3>Shift</h3>
+    <button id="shiftBtn">Shift Element</button>
+  </div>
+
+  <!-- Unshift -->
+  <div class="method-box">
+    <h3>Unshift</h3>
+    <input type="text" id="unshiftInput" placeholder="Add element"/>
+    <button id="unshiftBtn">Unshift Element</button>
+  </div>
+
+  <!-- Splice -->
+  <div class="method-box">
+    <h3>Splice</h3>
+    <input type="number" id="spliceStart" placeholder="Start index"/>
+    <input type="number" id="spliceDeleteCount" placeholder="Delete count"/>
+    <input type="text" id="spliceItems" placeholder="Items to add"/>
+    <button id="spliceBtn">Splice</button>
+  </div>
+
+  <!-- Slice -->
+  <div class="method-box">
+    <h3>Slice</h3>
+    <input type="number" id="sliceStart" placeholder="Start index"/>
+    <input type="number" id="sliceEnd" placeholder="End index"/>
+    <button id="sliceBtn">Slice</button>
+  </div>
+
+</div>
+
+<!-- Results display -->
+<div class="result" id="result" style="display:none;">
+  <h2>Results</h2>
+  <p><strong>Array:</strong> <span id="arrayResult"></span></p>
+  <p><strong>Maximum Value:</strong> <span id="maxValue"></span></p>
+  <p><strong>Minimum Value:</strong> <span id="minValue"></span></p>
+</div>
+</div>
+
+<script>
+// Initialize array variable
+let currentArray = [];
+
+// Function to update the display
+function updateDisplay() {
+  document.getElementById('arrayDisplay').textContent = JSON.stringify(currentArray);
+}
+
+// Handle initial array input
+document.getElementById('arrayForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const input = document.getElementById('numbers').value;
+  currentArray = input.split(',').map(item => parseInt(item.trim())).filter(item => !isNaN(item));
+  if (currentArray.length === 0) {
+    alert('Please enter a valid array of numbers.');
+    return;
+  }
+  updateDisplay();
+  hideResults();
+});
+
+// Show results
+function showResults() {
+  document.getElementById('arrayResult').textContent = JSON.stringify(currentArray);
+  document.getElementById('maxValue').textContent = Math.max(...currentArray);
+  document.getElementById('minValue').textContent = Math.min(...currentArray);
+  document.getElementById('result').style.display = 'block';
+}
+
+// Hide results
+function hideResults() {
+  document.getElementById('result').style.display = 'none';
+}
+
+// Push button
+document.getElementById('pushBtn').addEventListener('click', () => {
+  const val = document.getElementById('pushInput').value.trim();
+  if (val !== '') {
+    currentArray.push(isNaN(val) ? val : parseFloat(val));
+    document.getElementById('pushInput').value = '';
+    updateDisplay();
+    showResults();
+  } else {
+    alert('Enter a value to push.');
+  }
+});
+
+// Pop button
+document.getElementById('popBtn').addEventListener('click', () => {
+  currentArray.pop();
+  updateDisplay();
+  showResults();
+});
+
+// Shift button
+document.getElementById('shiftBtn').addEventListener('click', () => {
+  currentArray.shift();
+  updateDisplay();
+  showResults();
+});
+
+// Unshift button
+document.getElementById('unshiftBtn').addEventListener('click', () => {
+  const val = document.getElementById('unshiftInput').value.trim();
+  if (val !== '') {
+    currentArray.unshift(isNaN(val) ? val : parseFloat(val));
+    document.getElementById('unshiftInput').value = '';
+    updateDisplay();
+    showResults();
+  } else {
+    alert('Enter a value to unshift.');
+  }
+});
+
+// Splice button
+document.getElementById('spliceBtn').addEventListener('click', () => {
+  const start = parseInt(document.getElementById('spliceStart').value);
+  const deleteCount = parseInt(document.getElementById('spliceDeleteCount').value);
+  const itemsStr = document.getElementById('spliceItems').value.trim();
+
+  if (isNaN(start) || isNaN(deleteCount)) {
+    alert('Please enter valid start index and delete count.');
+    return;
+  }
+
+  const items = itemsStr ? itemsStr.split(',').map(item => isNaN(item.trim()) ? item.trim() : parseFloat(item.trim())) : [];
+
+  currentArray.splice(start, deleteCount, ...items);
+  updateDisplay();
+  showResults();
+});
+
+// Slice button
+document.getElementById('sliceBtn').addEventListener('click', () => {
+  const start = parseInt(document.getElementById('sliceStart').value);
+  const end = parseInt(document.getElementById('sliceEnd').value);
+  if (isNaN(start) || isNaN(end)) {
+    alert('Please enter valid start and end indices.');
+    return;
+  }
+  currentArray = currentArray.slice(start, end);
+  updateDisplay();
+  showResults();
+});
+</script>
+
+</body>
+</html>
