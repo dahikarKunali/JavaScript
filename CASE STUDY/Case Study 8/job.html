@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Northstar Careers | Join Our Team</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary-color: #4A3F35;
+    --secondary-color: #A67F5B;
+    --background-color: #FAF9F6;
+    --text-color: #2A2A2A;
+    --border-color: #D3CFCF;
+    --accent-color: #C28E5E;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--primary-color);
+  }
+  .logo span {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+  main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    text-align: center;
+  }
+  p.description {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+  }
+  form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  fieldset {
+    border: none;
+    margin-bottom: 25px;
+  }
+  legend {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .section-number {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-right: 8px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  label {
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  select,
+  textarea {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+  }
+  input[type="file"] {
+    padding: 8px;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  .checkbox-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+  }
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+  }
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  button {
+    padding: 14px 30px;
+    font-size: 1rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #3b2f27;
+  }
+  #status {
+    margin-top: 20px;
+    font-weight: 600;
+    color: green;
+  }
+  @media(max-width: 768px) {
+    body { font-size: 14px; }
+    header { flex-direction: column; padding: 15px 20px; }
+    h1 { font-size: 2rem; }
+    .actions { flex-direction: column; gap: 15px; }
+    button { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><span>N</span>Northstar</div>
+  <small>People first. Progress always.</small>
+</header>
+<main>
+  <h1>Join Our Team</h1>
+  <p class="description">Share your background, skills, and motivation. Let's create something great together.</p>
+  <form id="applicationForm">
+    <!-- Personal Info -->
+    <fieldset>
+      <legend><div class="section-header"><div class="section-number">01</div>Personal Details</div></legend>
+      <div class="form-group">
+        <label for="firstName">First Name *</label>
+        <input type="text" id="firstName" name="firstName" required placeholder="Alex" autocomplete="given-name" />
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name *</label>
+        <input type="text" id="lastName" name="lastName" required placeholder="Morgan" autocomplete="family-name" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required placeholder="alex@example.com" autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone (Optional)</label>
+        <input type="tel" id="phone" name="phone" placeholder="+1 555 000 0000" autocomplete="tel" />
+      </div>
+      <div class="form-group">
+        <label for="location">Location *</label>
+        <input type="text" id="location" name="location" required placeholder="Toronto, Canada" autocomplete="address-level2" />
+      </div>
+    </fieldset>
+    <!-- Role & Experience -->
+    <fieldset>
+      <legend><div class="section-header"><div class="section-number">02</div>Role & Experience</div></legend>
+      <div class="form-group">
+        <label for="role">Applying For *</label>
+        <select id="role" name="role" required>
+          <option value="">Select a role</option>
+          <option>Product Designer</option>
+          <option>Software Engineer</option>
+          <option>Marketing Specialist</option>
+          <option>Customer Success Manager</option>
+          <option>Open application</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="experience">Experience Level *</label>
+        <select id="experience" name="experience" required>
+          <option value="">Select experience</option>
+          <option>0-1 years</option>
+          <option>2-4 years</option>
+          <option>5-8 years</option>
+          <option>9+ years</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="resume">Upload Resume *</label>
+        <input type="file" id="resume" name="resume" required accept=".pdf,.doc,.docx" />
+        <small>PDF, DOC, Max 10MB</small>
+      </div>
+      <div class="form-group">
+        <label for="portfolio">Portfolio/LinkedIn (Optional)</label>
+        <input type="url" id="portfolio" name="portfolio" placeholder="https://..." />
+      </div>
+      <div class="form-group">
+        <label for="startDate">Earliest Start Date *</label>
+        <input type="date" id="startDate" name="startDate" required />
+      </div>
+    </fieldset>
+    <!-- Education & Skills -->
+    <fieldset>
+      <legend><div class="section-header"><div class="section-number">03</div>Education & Skills</div></legend>
+      <div class="form-group">
+        <label for="education">Highest Qualification *</label>
+        <select id="education" name="education" required>
+          <option value="">Select qualification</option>
+          <option>High school</option>
+          <option>Diploma / certificate</option>
+          <option>Bachelor's degree</option>
+          <option>Master's degree</option>
+          <option>Doctorate</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="institution">Institution / Field of Study</label>
+        <input type="text" id="institution" name="institution" placeholder="University or program" />
+      </div>
+      <div class="form-group">
+        <label for="skills">Technical Skills *</label>
+        <input type="text" id="skills" name="skills" required placeholder="e.g., JavaScript, Figma" />
+        <small>Separate with commas.</small>
+      </div>
+      <div class="form-group">
+        <label for="motivation">Why Northstar? *</label>
+        <textarea id="motivation" name="motivation" required placeholder="What makes this role and team a good fit?"></textarea>
+      </div>
+    </fieldset>
+    <!-- Additional Info -->
+    <fieldset>
+      <legend><div class="section-header"><div class="section-number">04</div>Additional Info</div></legend>
+      <div class="form-group">
+        <label>Work Preference *</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="radio" name="workPreference" value="Remote" required /> Remote</label>
+          <label class="checkbox-label"><input type="radio" name="workPreference" value="Hybrid" /> Hybrid</label>
+          <label class="checkbox-label"><input type="radio" name="workPreference" value="Office" /> In-office</label>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:20px;">
+        <label class="checkbox-label">
+          <input type="checkbox" name="consent" required /> I confirm the info is accurate and consent to use for recruitment.
+        </label>
+      </div>
+    </fieldset>
+    <div class="actions">
+      <p>* Required fields</p>
+      <button type="submit">Submit Application &rarr;</button>
+    </div>
+    <p id="status"></p>
+  </form>
+</main>
+<script>
+  document.getElementById('applicationForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!this.checkValidity()) {
+      this.reportValidity();
+      return;
+    }
+    document.getElementById('status').textContent = 'Thank you for your application!';
+    this.reset();
+  });
+</script>
+</body>
+</html>
