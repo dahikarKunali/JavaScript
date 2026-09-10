@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CSS - Three Methods Demo</title>
+
+<!-- EXTERNAL CSS -->
+<link rel="stylesheet" href="styles.css">
+
+<!-- INTERNAL CSS -->
+<style>
+  /* Reset and basic styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #667eea;
+    min-height: 100vh;
+    padding: 30px;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* Dark mode styles */
+  body.dark-mode {
+    background-color: #222;
+    color: #eee;
+  }
+
+  /* Toggle button styles */
+  .toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+  }
+  #themeToggle {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background: #4f46e5;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  #themeToggle:hover {
+    background: #4338ca;
+  }
+
+  /* Container styles */
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Header styles */
+  h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+  }
+  body.dark-mode h1 {
+    color: #ccc;
+  }
+
+  /* Box styles */
+  .box {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  body.dark-mode .box {
+    background-color: #333;
+    border: 1px solid #555;
+    color: #eee;
+  }
+  /* Hover effect for boxes */
+  .box:hover {
+    transform: translateY(-5px);
+  }
+
+  /* Heading styles inside boxes */
+  .box h2 {
+    margin-bottom: 15px;
+    font-size: 1.8em;
+  }
+  body.dark-mode .box h2 {
+    color: #fff;
+  }
+
+  /* Paragraph styles inside boxes */
+  .box p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 1em;
+  }
+
+  /* Button styles inside boxes */
+  .box button {
+    padding: 12px 30px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  body.dark-mode .box button {
+    /* Optional: darker buttons for dark mode */
+  }
+  /* Button hover effect */
+  .box button:hover {
+    transform: scale(1.05);
+  }
+</style>
+</head>
+<body>
+
+<!-- Toggle Button -->
+<div class="toggle-container">
+  <button id="themeToggle">Switch to Dark Mode</button>
+</div>
+
+<div class="container">
+    <h1> CSS - Three Methods Demo</h1>
+
+    <!-- BOX 1: INLINE CSS -->
+    <div class="box inline-box" style="background-color: #FFE5E5; border: 2px solid #FF6B6B;">
+        <h2 style="color: #FF6B6B; font-size: 2em;">1️⃣ Inline CSS</h2>
+        <p style="color: #333; font-size: 16px; line-height: 1.8;">
+            <strong style="color: #FF6B6B; font-size: 24px;">Hello World from Kunali Dahikar Prn:-24070521229</strong>
+        </p>
+        <button style="background-color: #FF6B6B; color: white;" onclick="inlineButtonClick()">
+            Click Me! 
+        </button>
+    </div>
+
+    <!-- BOX 2: INTERNAL CSS -->
+    <div class="box internal-box" style="background-color: #E5F9F7;">
+        <h2>2️⃣ Internal CSS</h2>
+        <p style="color: #333; font-size: 16px; line-height: 1.8;">
+            <strong style="color: #4ECDC4; font-size: 24px;">Hello World from Kunali Dahikar Prn:-24070521229</strong>
+        </p>
+        <button style="background-color: #4ECDC4; color: white;" onclick="internalButtonClick()">
+            Click Me! 
+        </button>
+    </div>
+
+    <!-- BOX 3: EXTERNAL CSS -->
+    <div class="box external-box">
+        <h2>3️⃣ External CSS</h2>
+        <p style="color: #333; font-size: 16px; line-height: 1.8;">
+            <strong style="color: #FFD93D; font-size: 24px;">Hello World from Kunali Dahikar Prn:-24070521229</strong>
+        </p>
+        <button onclick="externalButtonClick()">
+            Click Me! 
+        </button>
+    </div>
+</div>
+
+<!-- JavaScript for Buttons and Theme Toggle -->
+<script>
+  // Button functions
+  function inlineButtonClick() {
+      alert('✅ Inline CSS Button Clicked!\n\nInline styles are applied directly in HTML tags.');
+  }
+  function internalButtonClick() {
+      alert('✅ Internal CSS Button Clicked!\n\nInternal styles are in the <style> tag within HTML.');
+  }
+  function externalButtonClick() {
+      alert('✅ External CSS Button Clicked!\n\nExternal styles are in a separate .css file!');
+  }
+
+  // Theme toggle
+  const themeBtn = document.getElementById('themeToggle');
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+      themeBtn.innerText = 'Switch to Light Mode';
+    } else {
+      themeBtn.innerText = 'Switch to Dark Mode';
+    }
+  });
+</script>
+
+</body>
+</html>
