@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Campus Event Registration System</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Campus Event Registration System</h1>
+
+<p class="description">
+Student registration details for various campus events
+</p>
+
+<!-- Buttons -->
+<div class="button-section">
+
+<button id="fetchBtn">
+Load Student Data - Fetch
+</button>
+
+<button id="jqueryBtn">
+Load Student Data - jQuery
+</button>
+
+</div>
+
+<!-- Search and Filter -->
+<div class="controls">
+
+<input
+type="text"
+id="searchBox"
+placeholder="Search by Student Name or PRN"
+>
+
+<select id="statusFilter">
+
+<option value="All">
+All Status
+</option>
+
+<option value="Registered">
+Registered
+</option>
+
+<option value="Pending">
+Pending
+</option>
+
+<option value="Cancelled">
+Cancelled
+</option>
+
+</select>
+
+</div>
+
+<!-- Message -->
+<div id="message"></div>
+
+<!-- Student Table -->
+<table>
+
+<thead>
+
+<tr>
+<th>Student Name</th>
+<th>PRN</th>
+<th>Department</th>
+<th>Year</th>
+<th>Event Name</th>
+<th>Registration Status</th>
+</tr>
+
+</thead>
+
+<tbody id="studentTableBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
