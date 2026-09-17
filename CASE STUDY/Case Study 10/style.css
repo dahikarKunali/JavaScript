@@ -1,0 +1,140 @@
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family: Arial, sans-serif;
+background-color: #f4f6f8;
+padding: 30px;
+}
+
+.container {
+max-width: 1200px;
+margin: auto;
+background-color: white;
+padding: 30px;
+border-radius: 10px;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+text-align: center;
+margin-bottom: 10px;
+color: #222;
+}
+
+.description {
+text-align: center;
+margin-bottom: 25px;
+color: #666;
+}
+
+.button-section {
+text-align: center;
+margin-bottom: 20px;
+}
+
+button {
+padding: 12px 20px;
+margin: 5px;
+border: none;
+border-radius: 5px;
+background-color: #2563eb;
+color: white;
+cursor: pointer;
+font-size: 15px;
+}
+
+button:hover {
+background-color: #1d4ed8;
+}
+
+.controls {
+display: flex;
+gap: 15px;
+margin-bottom: 20px;
+}
+
+#searchBox {
+flex: 1;
+padding: 12px;
+border: 1px solid #ccc;
+border-radius: 5px;
+font-size: 15px;
+}
+
+#statusFilter {
+width: 200px;
+padding: 12px;
+border: 1px solid #ccc;
+border-radius: 5px;
+font-size: 15px;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+}
+
+th {
+background-color: #2563eb;
+color: white;
+padding: 12px;
+}
+
+td {
+padding: 12px;
+border: 1px solid #ddd;
+text-align: center;
+}
+
+tr:nth-child(even) {
+background-color: #f8f8f8;
+}
+
+tr:hover {
+background-color: #eef4ff;
+}
+
+#message {
+text-align: center;
+margin: 15px 0;
+font-weight: bold;
+}
+
+.status-registered {
+color: green;
+font-weight: bold;
+}
+
+.status-pending {
+color: orange;
+font-weight: bold;
+}
+
+.status-cancelled {
+color: red;
+font-weight: bold;
+}
+
+@media (max-width: 800px) {
+
+.controls {
+flex-direction: column;
+}
+
+#statusFilter {
+width: 100%;
+}
+
+table {
+font-size: 12px;
+}
+
+th,
+td {
+padding: 8px;
+}
+}
