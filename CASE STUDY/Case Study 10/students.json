@@ -1,0 +1,66 @@
+[
+{
+"studentName": "Kunali Dahikar",
+"prn": "24070521229",
+"department": "Computer Science",
+"year": "2nd Year",
+"eventName": "Tech Fest",
+"registrationStatus": "Registered"
+},
+{
+"studentName": "Omkar Kamble",
+"prn": "24070521285",
+"department": "Information Technology",
+"year": "2nd Year",
+"eventName": "Coding Competition",
+"registrationStatus": "Registered"
+},
+{
+"studentName": "arnav Band ",
+"prn": "24070521223",
+"department": "Computer Science",
+"year": "3rd Year",
+"eventName": "Hackathon",
+"registrationStatus": "Pending"
+},
+{
+"studentName": "Sharwari Butle",
+"prn": "24070521228",
+"department": "Electronics",
+"year": "2nd Year",
+"eventName": "Robotics Workshop",
+"registrationStatus": "Cancelled"
+},
+{
+"studentName": "Anushka Paliwal",
+"prn": "24070521215",
+"department": "Information Technology",
+"year": "3rd Year",
+"eventName": "Tech Fest",
+"registrationStatus": "Registered"
+},
+{
+"studentName": "Jayesh Mundle",
+"prn": "24070521255",
+"department": "Mechanical",
+"year": "4th Year",
+"eventName": "Project Exhibition",
+"registrationStatus": "Pending"
+},
+{
+"studentName": "Diya Hassani",
+"prn": "24070521239",
+"department": "Computer Science",
+"year": "1st Year",
+"eventName": "Coding Competition",
+"registrationStatus": "Registered"
+},
+{
+"studentName": "Gunn Fulwani",
+"prn": "24070521232",
+"department": "Civil",
+"year": "3rd Year",
+"eventName": "Sports Meet",
+"registrationStatus": "Cancelled"
+}
+]
