@@ -1,0 +1,122 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    padding: 24px 16px;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+h2 {
+    text-align: center;
+    color: #1e293b;
+    font-size: 1.5rem;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 1rem;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.time-display {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 12px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+button {
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.custom-timer {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.custom-timer input {
+    width: 140px;
+    padding: 6px 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.status {
+    min-height: 22px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #16a34a;
+    font-weight: 600;
+}
+
+ul {
+    list-style: none;
+    text-align: left;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 4px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.95rem;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+.mode-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #475569;
+    background: #e2e8f0;
+    padding: 4px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.3px;
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Class Scheduler & Countdown</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Class Scheduler & Countdown</h2>
+
+        <!-- Real-time Clock (setInterval) -->
+        <div class="card">
+            <h3>Current Time</h3>
+            <p id="clock" class="time-display">--:--:--</p>
+        </div>
+
+        <!-- Dynamic Countdown Timer (setInterval & setTimeout) -->
+        <div class="card">
+            <h3 id="currentClassTitle">Next Class</h3>
+            <p id="countdown" class="time-display">00:00</p>
+            <div class="btn-group">
+                <button id="startBtn">Start</button>
+                <button id="pauseBtn">Pause</button>
+                <button id="resetBtn">Reset</button>
+            </div>
+            <!-- Custom Input Timer -->
+            <div class="custom-timer">
+                <input type="number" id="customInput" placeholder="Enter seconds" min="1">
+                <button id="setCustomBtn">Set</button>
+            </div>
+            <p id="statusMsg" class="status"></p>
+        </div>
+
+        <!-- Class Schedule List -->
+        <div class="card">
+            <h3>Class Routine</h3>
+            <ul id="classList"></ul>
+        </div>
+
+        <!-- Mode Indicator Badge -->
+        <div style="text-align: center;">
+            <span id="modeBadge" class="mode-badge">Initializing...</span>
+        </div>
+    </div>
+
+    <!-- Dual-Mode Module Runner: Works both via direct file:// opening and http:// local server -->
+    <script type="module">
+        // Direct file protocol (file://) causes browsers to block relative external module files due to CORS.
+        // We handle both environments automatically:
+        if (window.location.protocol === 'file:') {
+            // Under file://, use inline data-URI ES6 module import so ES6 module import/export works natively:
+            const moduleData = 'data:text/javascript;charset=utf-8,' + encodeURIComponent(`
+                export const schedule = [
+                    { subject: "Web Technologies", room: "Lab 3", duration: 15 },
+                    { subject: "Database Systems", room: "Room 204", duration: 20 },
+                    { subject: "Computer Networks", room: "Lab 1", duration: 25 }
+                ];
+                export function formatTime(seconds) {
+                    const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+                    const secs = (seconds % 60).toString().padStart(2, '0');
+                    return \`\${mins}:\${secs}\`;
+                }
+            `);
+
+            import(moduleData)
+                .then(mod => {
+                    initApp(mod.schedule, mod.formatTime, "Direct File Mode: ES6 Module (file://)");
+                })
+                .catch(() => {
+                    // Safe fallback
+                    const fallbackSchedule = [
+                        { subject: "Web Technologies", room: "Lab 3", duration: 15 },
+                        { subject: "Database Systems", room: "Room 204", duration: 20 },
+                        { subject: "Computer Networks", room: "Lab 1", duration: 25 }
+                    ];
+                    const fallbackFormat = (s) => `${Math.floor(s/60).toString().padStart(2, '0')}:${(s%60).toString().padStart(2, '0')}`;
+                    initApp(fallbackSchedule, fallbackFormat, "Direct File Mode (file://)");
+                });
+        } else {
+            // When served over http/https (e.g. Live Server or web server), load external app.js module:
+            import('./app.js');
+        }
+
+        function initApp(schedule, formatTime, modeLabel) {
+            const clockEl = document.getElementById('clock');
+            const countdownEl = document.getElementById('countdown');
+            const classTitle = document.getElementById('currentClassTitle');
+            const statusMsg = document.getElementById('statusMsg');
+            const classList = document.getElementById('classList');
+            const modeBadge = document.getElementById('modeBadge');
+            if (modeBadge) modeBadge.innerText = modeLabel;
+
+            const startBtn = document.getElementById('startBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const customInput = document.getElementById('customInput');
+            const setCustomBtn = document.getElementById('setCustomBtn');
+
+            let currentClassIndex = 0;
+            let timeLeft = schedule[0].duration;
+            let timerId = null;
+
+            // 1. setInterval(): Real-time clock updating every 1000ms
+            const updateClock = () => {
+                clockEl.innerText = new Date().toLocaleTimeString();
+            };
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            // Render class routine
+            function renderSchedule() {
+                classList.innerHTML = schedule
+                    .map((cls) => `<li><strong>${cls.subject}</strong> (${cls.room}) <span>${cls.duration}s</span></li>`)
+                    .join('');
+                updateDisplay();
+            }
+
+            function updateDisplay() {
+                const cls = schedule[currentClassIndex];
+                classTitle.innerText = `Upcoming: ${cls.subject} (${cls.room})`;
+                countdownEl.innerText = formatTime(timeLeft);
+            }
+
+            // 2. setInterval(): Dynamic countdown ticker
+            function startCountdown() {
+                if (timerId) return;
+
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    countdownEl.innerText = formatTime(timeLeft);
+
+                    if (timeLeft <= 0) {
+                        clearInterval(timerId);
+                        timerId = null;
+                        statusMsg.innerText = `🔔 Started: ${schedule[currentClassIndex].subject}!`;
+
+                        // 3. setTimeout(): Wait 3 seconds, then switch to next class
+                        setTimeout(() => {
+                            currentClassIndex = (currentClassIndex + 1) % schedule.length;
+                            timeLeft = schedule[currentClassIndex].duration;
+                            updateDisplay();
+                            statusMsg.innerText = "Ready for next class.";
+                        }, 3000);
+                    }
+                }, 1000);
+            }
+
+            function pauseCountdown() {
+                clearInterval(timerId);
+                timerId = null;
+                statusMsg.innerText = "Timer paused.";
+            }
+
+            function resetCountdown() {
+                pauseCountdown();
+                timeLeft = schedule[currentClassIndex].duration;
+                countdownEl.innerText = formatTime(timeLeft);
+                statusMsg.innerText = "";
+            }
+
+            startBtn.addEventListener('click', startCountdown);
+            pauseBtn.addEventListener('click', pauseCountdown);
+            resetBtn.addEventListener('click', resetCountdown);
+
+            setCustomBtn.addEventListener('click', () => {
+                const customSeconds = parseInt(customInput.value);
+                if (customSeconds > 0) {
+                    pauseCountdown();
+                    timeLeft = customSeconds;
+                    countdownEl.innerText = formatTime(timeLeft);
+                    statusMsg.innerText = `Custom countdown set to ${customSeconds}s.`;
+                    customInput.value = '';
+                }
+            });
+
+            renderSchedule();
+        }
+    </script>
+</body>
+</html>
