@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Class Scheduler</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f6fb;
+            color: #222;
+        }
+
+        /* Header */
+        header {
+            background: #263238;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        #clock {
+            font-size: 18px;
+            color: #d9e4ec;
+        }
+
+        /* Main container */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        /* Current class section */
+        .current-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+            color: #263238;
+        }
+
+        .current-card {
+            border-left: 6px solid #2196f3;
+        }
+
+        .next-card {
+            border-left: 6px solid #4caf50;
+        }
+
+        .subject {
+            font-size: 25px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            margin: 7px 0;
+            color: #555;
+        }
+
+        /* Countdown */
+        .countdown {
+            margin-top: 18px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #e53935;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #2196f3;
+        }
+
+        /* Schedule */
+        .schedule {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .schedule h2 {
+            margin-bottom: 20px;
+        }
+
+        .class-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f7f9fc;
+            border-radius: 10px;
+            border-left: 5px solid #90caf9;
+        }
+
+        .class-item.active {
+            background: #e3f2fd;
+            border-left-color: #2196f3;
+        }
+
+        .class-info h3 {
+            margin-bottom: 5px;
+        }
+
+        .time {
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Notification */
+        #notification {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: #323232;
+            color: white;
+            padding: 18px 25px;
+            border-radius: 10px;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        /* Responsive */
+        @media(max-width: 700px) {
+
+            .current-section {
+                grid-template-columns: 1fr;
+            }
+
+            .class-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+
+        <h1>📚 Smart Class Scheduler</h1>
+
+        <div id="clock">
+            Loading time...
+        </div>
+
+    </header>
+
+
+    <div class="container">
+
+        <!-- Current and Next Class -->
+        <div class="current-section">
+
+            <!-- Current Class -->
+            <div class="card current-card">
+
+                <h2>🔵 Current Class</h2>
+
+                <div id="currentClass">
+                    Loading...
+                </div>
+
+            </div>
+
+
+            <!-- Next Class -->
+            <div class="card next-card">
+
+                <h2>🟢 Next Class</h2>
+
+                <div id="nextClass">
+                    Loading...
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Today's Schedule -->
+        <div class="schedule">
+
+            <h2>📅 Today's Class Schedule</h2>
+
+            <div id="scheduleList"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Notification -->
+    <div id="notification"></div>
+
+
+    <script>
+
+        /*
+        ==========================================
+        1. CLASS SCHEDULE ARRAY
+        ==========================================
+        */
+
+        const classes = [
+
+            {
+                subject: "JavaScript",
+                faculty: "Prof. Shreyas Hole",
+                classroom: "Lab 3",
+                start: "09:05",
+                end: "10:45"
+            },
+
+            {
+                subject: "Computer Networks",
+                faculty: "Prof. Pawan Verma",
+                classroom: "Room 104",
+                start: "10:45",
+                end: "11:40"
+            },
+
+            {
+                subject: "Data Compression",
+                faculty: "Prof. Nilesh Shelke",
+                classroom: "Lab 1",
+                start: "11:40",
+                end: "12:30"
+            },
+
+            {
+                subject: "Compiler Construction",
+                faculty: "Prof. Snehlata Wankhade",
+                classroom: "Room 305",
+                start: "12:30",
+                end: "13:20"
+            },
+
+            {
+                subject: "UI/UX Design",
+                faculty: "Prof. Umakant Mandawkar",
+                classroom: "Lab 2",
+                start: "13:20",
+                end: "15:00"
+            }
+
+        ];
+
+
+        /*
+        ==========================================
+        2. CONVERT TIME TO DATE OBJECT
+        ==========================================
+        */
+
+        function getTime(timeString) {
+
+            const [hours, minutes] = timeString.split(":");
+
+            const date = new Date();
+
+            date.setHours(hours);
+            date.setMinutes(minutes);
+            date.setSeconds(0);
+            date.setMilliseconds(0);
+
+            return date;
+        }
+
+
+        /*
+        ==========================================
+        3. FORMAT COUNTDOWN
+        ==========================================
+        */
+
+        function formatTime(milliseconds) {
+
+            let totalSeconds = Math.floor(milliseconds / 1000);
+
+            let hours = Math.floor(totalSeconds / 3600);
+
+            let minutes = Math.floor((totalSeconds % 3600) / 60);
+
+            let seconds = totalSeconds % 60;
+
+            return (
+                String(hours).padStart(2, "0") +
+                ":" +
+                String(minutes).padStart(2, "0") +
+                ":" +
+                String(seconds).padStart(2, "0")
+            );
+        }
+
+
+        /*
+        ==========================================
+        4. DISPLAY CLOCK
+        ==========================================
+        */
+
+        function updateClock() {
+
+            const now = new Date();
+
+            document.getElementById("clock").innerText =
+                "Current Time: " + now.toLocaleTimeString();
+
+        }
+
+
+        /*
+        ==========================================
+        5. FIND CURRENT CLASS
+        ==========================================
+        */
+
+        function getCurrentClass() {
+
+            const now = new Date();
+
+            for (let i = 0; i < classes.length; i++) {
+
+                const startTime = getTime(classes[i].start);
+                const endTime = getTime(classes[i].end);
+
+                if (now >= startTime && now < endTime) {
+
+                    return i;
+
+                }
+
+            }
+
+            return -1;
+        }
+
+
+        /*
+        ==========================================
+        6. FIND NEXT CLASS
+        ==========================================
+        */
+
+        function getNextClass() {
+
+            const now = new Date();
+
+            for (let i = 0; i < classes.length; i++) {
+
+                const startTime = getTime(classes[i].start);
+
+                if (startTime > now) {
+
+                    return i;
+
+                }
+
+            }
+
+            return -1;
+        }
+
+
+        /*
+        ==========================================
+        7. DISPLAY CURRENT CLASS
+        ==========================================
+        */
+
+        function displayCurrentClass() {
+
+            const currentIndex = getCurrentClass();
+
+            const currentDiv =
+                document.getElementById("currentClass");
+
+
+            if (currentIndex === -1) {
+
+                currentDiv.innerHTML = `
+                    <div class="subject">
+                        No Class Currently
+                    </div>
+
+                    <div class="info">
+                        There is no class in progress.
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            const current = classes[currentIndex];
+
+            const endTime = getTime(current.end);
+
+            const now = new Date();
+
+            const remainingTime =
+                endTime - now;
+
+
+            currentDiv.innerHTML = `
+
+                <div class="subject">
+                    ${current.subject}
+                </div>
+
+                <div class="info">
+                    👨‍🏫 Faculty: ${current.faculty}
+                </div>
+
+                <div class="info">
+                    🏫 Classroom: ${current.classroom}
+                </div>
+
+                <div class="info">
+                    🕐 ${current.start} - ${current.end}
+                </div>
+
+                <div class="status">
+                    🔴 Class in Progress
+                </div>
+
+                <div class="countdown">
+                    ${formatTime(remainingTime)}
+                </div>
+
+                <div>
+                    remaining
+                </div>
+
+            `;
+
+        }
+
+
+        /*
+        ==========================================
+        8. DISPLAY NEXT CLASS
+        ==========================================
+        */
+
+        function displayNextClass() {
+
+            const nextIndex = getNextClass();
+
+            const nextDiv =
+                document.getElementById("nextClass");
+
+
+            if (nextIndex === -1) {
+
+                nextDiv.innerHTML = `
+                    <div class="subject">
+                        No More Classes
+                    </div>
+
+                    <div class="info">
+                        Today's schedule is completed.
+                    </div>
+                `;
+
+                return;
+            }
+
+
+            const next = classes[nextIndex];
+
+            const startTime = getTime(next.start);
+
+            const now = new Date();
+
+            const remainingTime =
+                startTime - now;
+
+
+            nextDiv.innerHTML = `
+
+                <div class="subject">
+                    ${next.subject}
+                </div>
+
+                <div class="info">
+                    👨‍🏫 Faculty: ${next.faculty}
+                </div>
+
+                <div class="info">
+                    🏫 Classroom: ${next.classroom}
+                </div>
+
+                <div class="info">
+                    🕐 ${next.start} - ${next.end}
+                </div>
+
+                <div class="status">
+                    🟢 Next Class Starts In
+                </div>
+
+                <div class="countdown">
+                    ${formatTime(remainingTime)}
+                </div>
+
+            `;
+
+        }
+
+
+        /*
+        ==========================================
+        9. DISPLAY FULL SCHEDULE
+        ==========================================
+        */
+
+        function displaySchedule() {
+
+            const scheduleList =
+                document.getElementById("scheduleList");
+
+            const currentIndex =
+                getCurrentClass();
+
+
+            scheduleList.innerHTML = "";
+
+
+            classes.forEach((classData, index) => {
+
+                const div =
+                    document.createElement("div");
+
+
+                div.classList.add("class-item");
+
+
+                if (index === currentIndex) {
+
+                    div.classList.add("active");
+
+                }
+
+
+                div.innerHTML = `
+
+                    <div class="class-info">
+
+                        <h3>
+                            ${classData.subject}
+                        </h3>
+
+                        <div>
+                            👨‍🏫 ${classData.faculty}
+                        </div>
+
+                        <div>
+                            🏫 ${classData.classroom}
+                        </div>
+
+                    </div>
+
+                    <div class="time">
+
+                        ${classData.start}
+                        -
+                        ${classData.end}
+
+                    </div>
+
+                `;
+
+
+                scheduleList.appendChild(div);
+
+            });
+
+        }
+
+
+        /*
+        ==========================================
+        10. TEMPORARY NOTIFICATION
+        ==========================================
+        */
+
+        function showNotification(message) {
+
+            const notification =
+                document.getElementById("notification");
+
+
+            notification.innerText = message;
+
+            notification.style.display = "block";
+
+
+            /*
+            setTimeout()
+            hides notification after 5 seconds
+            */
+
+            setTimeout(() => {
+
+                notification.style.display = "none";
+
+            }, 5000);
+
+        }
+
+
+        /*
+        ==========================================
+        11. CHECK CLASS START
+        ==========================================
+        */
+
+        let previousClassIndex = getCurrentClass();
+
+
+        function checkClassChange() {
+
+            const currentIndex =
+                getCurrentClass();
+
+
+            /*
+            If a new class has started
+            */
+
+            if (
+                currentIndex !== -1 &&
+                currentIndex !== previousClassIndex
+            ) {
+
+                showNotification(
+                    "📢 Your " +
+                    classes[currentIndex].subject +
+                    " class has started!"
+                );
+
+            }
+
+
+            /*
+            Update previous class
+            */
+
+            previousClassIndex = currentIndex;
+
+        }
+
+
+        /*
+        ==========================================
+        12. UPDATE EVERYTHING
+        ==========================================
+        */
+
+        function updateScheduler() {
+
+            updateClock();
+
+            displayCurrentClass();
+
+            displayNextClass();
+
+            displaySchedule();
+
+            checkClassChange();
+
+        }
+
+
+        /*
+        ==========================================
+        13. RUN EVERY SECOND
+        ==========================================
+        */
+
+        updateScheduler();
+
+        setInterval(updateScheduler, 1000);
+
+
+    </script>
+
+</body>
+
+</html>
