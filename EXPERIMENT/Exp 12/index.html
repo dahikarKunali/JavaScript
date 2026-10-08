@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Campus Event Registration System</title>
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+
+/* =========================
+GLOBAL
+========================= */
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+:root {
+--primary: #6366f1;
+--secondary: #8b5cf6;
+--success: #10b981;
+--danger: #ef4444;
+--warning: #f59e0b;
+
+--bg: #f5f7fb;
+--card: #ffffff;
+--text: #172033;
+--muted: #64748b;
+--border: #e5e7eb;
+
+--shadow:
+0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+body {
+font-family: "Inter", sans-serif;
+background: var(--bg);
+color: var(--text);
+min-height: 100vh;
+transition: 0.3s;
+}
+
+body.dark {
+--bg: #0f172a;
+--card: #1e293b;
+--text: #f8fafc;
+--muted: #94a3b8;
+--border: #334155;
+}
+
+.container {
+width: 92%;
+max-width: 1250px;
+margin: auto;
+}
+
+/* =========================
+HEADER
+========================= */
+
+header {
+background:
+linear-gradient(
+135deg,
+#4f46e5,
+#7c3aed,
+#9333ea
+);
+
+color: white;
+padding: 55px 0 80px;
+
+position: relative;
+overflow: hidden;
+}
+
+header::before {
+content: "";
+position: absolute;
+width: 400px;
+height: 400px;
+border-radius: 50%;
+background: rgba(255,255,255,0.08);
+top: -200px;
+right: -100px;
+}
+
+header::after {
+content: "";
+position: absolute;
+width: 300px;
+height: 300px;
+border-radius: 50%;
+background: rgba(255,255,255,0.06);
+bottom: -180px;
+left: -100px;
+}
+
+.nav {
+display: flex;
+justify-content: space-between;
+align-items: center;
+position: relative;
+z-index: 2;
+}
+
+.logo {
+font-size: 24px;
+font-weight: 800;
+}
+
+.logo span {
+opacity: 0.75;
+}
+
+.theme-btn {
+border: 1px solid rgba(255,255,255,0.3);
+background: rgba(255,255,255,0.12);
+color: white;
+padding: 10px 15px;
+border-radius: 12px;
+cursor: pointer;
+font-size: 18px;
+}
+
+.hero {
+text-align: center;
+margin-top: 55px;
+position: relative;
+z-index: 2;
+}
+
+.hero h1 {
+font-size: clamp(32px, 5vw, 58px);
+font-weight: 800;
+margin-bottom: 15px;
+}
+
+.hero p {
+font-size: 17px;
+opacity: 0.9;
+max-width: 650px;
+margin: auto;
+}
+
+/* =========================
+MAIN
+========================= */
+
+main {
+margin-top: -35px;
+position: relative;
+z-index: 5;
+padding-bottom: 60px;
+}
+
+/* =========================
+STATS
+========================= */
+
+.stats {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 20px;
+margin-bottom: 40px;
+}
+
+.stat {
+background: var(--card);
+border: 1px solid var(--border);
+border-radius: 18px;
+padding: 25px;
+box-shadow: var(--shadow);
+display: flex;
+align-items: center;
+gap: 18px;
+}
+
+.stat-icon {
+width: 55px;
+height: 55px;
+border-radius: 15px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+font-size: 25px;
+background: #eef2ff;
+}
+
+.stat h3 {
+font-size: 27px;
+}
+
+.stat p {
+color: var(--muted);
+font-size: 13px;
+margin-top: 3px;
+}
+
+/* =========================
+SECTION
+========================= */
+
+.section {
+margin-bottom: 45px;
+}
+
+.section-title {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 22px;
+gap: 20px;
+}
+
+.section-title h2 {
+font-size: 28px;
+}
+
+/* =========================
+SEARCH
+========================= */
+
+.search-box {
+position: relative;
+width: 280px;
+}
+
+.search-box input {
+width: 100%;
+padding: 13px 17px;
+border-radius: 12px;
+border: 1px solid var(--border);
+background: var(--card);
+color: var(--text);
+outline: none;
+}
+
+/* =========================
+EVENTS
+========================= */
+
+.events {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 22px;
+}
+
+.event-card {
+background: var(--card);
+border: 1px solid var(--border);
+border-radius: 20px;
+overflow: hidden;
+box-shadow: var(--shadow);
+transition: 0.3s;
+}
+
+.event-card:hover {
+transform: translateY(-7px);
+box-shadow:
+0 20px 40px rgba(15, 23, 42, 0.13);
+}
+
+.event-top {
+height: 125px;
+padding: 22px;
+
+color: white;
+
+background:
+linear-gradient(
+135deg,
+#6366f1,
+#8b5cf6
+);
+
+position: relative;
+}
+
+.event-card:nth-child(2) .event-top {
+background:
+linear-gradient(
+135deg,
+#0891b2,
+#2563eb
+);
+}
+
+.event-card:nth-child(3) .event-top {
+background:
+linear-gradient(
+135deg,
+#db2777,
+#9333ea
+);
+}
+
+.event-number {
+position: absolute;
+right: 18px;
+top: 15px;
+font-size: 40px;
+opacity: 0.18;
+font-weight: 800;
+}
+
+.event-top h3 {
+font-size: 20px;
+max-width: 80%;
+}
+
+.event-body {
+padding: 22px;
+}
+
+.event-info {
+display: flex;
+gap: 10px;
+margin-bottom: 12px;
+color: var(--muted);
+font-size: 14px;
+}
+
+.event-info strong {
+color: var(--text);
+}
+
+.seat {
+display: inline-block;
+padding: 6px 10px;
+border-radius: 8px;
+background: #ecfdf5;
+color: #059669;
+font-size: 12px;
+font-weight: 700;
+margin-bottom: 18px;
+}
+
+.seat.low {
+background: #fff7ed;
+color: #ea580c;
+}
+
+.select-btn {
+width: 100%;
+padding: 12px;
+border: none;
+border-radius: 11px;
+
+background:
+linear-gradient(
+135deg,
+var(--primary),
+var(--secondary)
+);
+
+color: white;
+font-weight: 600;
+cursor: pointer;
+
+transition: 0.2s;
+}
+
+.select-btn:hover {
+transform: scale(1.02);
+}
+
+.select-btn:disabled {
+background: #94a3b8;
+cursor: not-allowed;
+}
+
+/* =========================
+FORM
+========================= */
+
+.form-container {
+background: var(--card);
+border: 1px solid var(--border);
+border-radius: 20px;
+padding: 30px;
+box-shadow: var(--shadow);
+}
+
+.form-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 20px;
+}
+
+.input-group {
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.input-group.full {
+grid-column: 1 / -1;
+}
+
+label {
+font-size: 14px;
+font-weight: 600;
+}
+
+input,
+select {
+width: 100%;
+padding: 14px;
+border-radius: 11px;
+
+border: 1px solid var(--border);
+background: var(--bg);
+color: var(--text);
+
+outline: none;
+font-family: inherit;
+}
+
+input:focus,
+select:focus {
+border-color: var(--primary);
+box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+}
+
+.register-btn {
+margin-top: 25px;
+padding: 14px 28px;
+
+border: none;
+border-radius: 11px;
+
+background:
+linear-gradient(
+135deg,
+#10b981,
+#059669
+);
+
+color: white;
+font-weight: 700;
+cursor: pointer;
+font-size: 15px;
+}
+
+/* =========================
+TABLE
+========================= */
+
+.table-container {
+overflow-x: auto;
+
+background: var(--card);
+border: 1px solid var(--border);
+border-radius: 20px;
+
+box-shadow: var(--shadow);
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+min-width: 750px;
+}
+
+th {
+background:
+linear-gradient(
+135deg,
+#4f46e5,
+#7c3aed
+);
+
+color: white;
+padding: 16px;
+text-align: left;
+font-size: 13px;
+}
+
+td {
+padding: 16px;
+border-bottom: 1px solid var(--border);
+font-size: 14px;
+}
+
+tr:last-child td {
+border-bottom: none;
+}
+
+.delete-btn {
+background: #fee2e2;
+color: #dc2626;
+
+border: none;
+padding: 8px 13px;
+border-radius: 8px;
+
+cursor: pointer;
+font-weight: 600;
+}
+
+.delete-btn:hover {
+background: #fecaca;
+}
+
+.empty {
+text-align: center;
+padding: 35px;
+color: var(--muted);
+}
+
+/* =========================
+TOAST
+========================= */
+
+#toast {
+position: fixed;
+right: 25px;
+bottom: 25px;
+
+min-width: 280px;
+
+background: var(--card);
+color: var(--text);
+
+border-left: 5px solid var(--success);
+
+padding: 17px 20px;
+border-radius: 12px;
+
+box-shadow:
+0 15px 40px rgba(0,0,0,0.15);
+
+transform: translateX(400px);
+transition: 0.4s;
+
+z-index: 9999;
+}
+
+#toast.show {
+transform: translateX(0);
+}
+
+#toast.error {
+border-color: var(--danger);
+}
+
+/* =========================
+LOADING
+========================= */
+
+.loading {
+text-align: center;
+padding: 50px;
+color: var(--muted);
+}
+
+.spinner {
+width: 35px;
+height: 35px;
+
+border: 4px solid #e5e7eb;
+border-top-color: var(--primary);
+
+border-radius: 50%;
+
+animation: spin 0.8s linear infinite;
+
+margin: 0 auto 15px;
+}
+
+@keyframes spin {
+to {
+transform: rotate(360deg);
+}
+}
+
+/* =========================
+FOOTER
+========================= */
+
+footer {
+text-align: center;
+color: var(--muted);
+padding: 30px;
+font-size: 13px;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width: 900px) {
+
+.events {
+grid-template-columns: 1fr 1fr;
+}
+
+.stats {
+grid-template-columns: 1fr;
+}
+}
+
+@media(max-width: 650px) {
+
+.events {
+grid-template-columns: 1fr;
+}
+
+.form-grid {
+grid-template-columns: 1fr;
+}
+
+.input-group.full {
+grid-column: auto;
+}
+
+.section-title {
+flex-direction: column;
+align-items: stretch;
+}
+
+.search-box {
+width: 100%;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+HEADER
+========================= -->
+
+<header>
+
+<div class="container">
+
+<div class="nav">
+
+<div class="logo">
+Campus<span>Events</span>
+</div>
+
+<button class="theme-btn" id="themeBtn">
+🌙
+</button>
+
+</div>
+
+<div class="hero">
+
+<h1>Campus Event Hub</h1>
+
+<p>
+Discover exciting campus events, register instantly,
+and manage your participation in one place.
+</p>
+
+</div>
+
+</div>
+
+</header>
+
+
+<main>
+
+<div class="container">
+
+<!-- =========================
+STATISTICS
+========================= -->
+
+<div class="stats">
+
+<div class="stat">
+
+<div class="stat-icon">
+🎟️
+</div>
+
+<div>
+<h3 id="totalRegistrations">0</h3>
+<p>Total Registrations</p>
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+📅
+</div>
+
+<div>
+<h3 id="totalEvents">0</h3>
+<p>Available Events</p>
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+🪑
+</div>
+
+<div>
+<h3 id="totalSeats">0</h3>
+<p>Available Seats</p>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+EVENTS
+========================= -->
+
+<section class="section">
+
+<div class="section-title">
+
+<div>
+<h2>Upcoming Events</h2>
+<p style="color:var(--muted);margin-top:5px;">
+Choose an event and reserve your seat
+</p>
+</div>
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchEvent"
+placeholder="🔎 Search events..."
+>
+
+</div>
+
+</div>
+
+
+<div id="eventsContainer" class="events">
+
+<div class="loading">
+
+<div class="spinner"></div>
+
+Loading events...
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+REGISTRATION FORM
+========================= -->
+
+<section class="section">
+
+<div class="section-title">
+
+<div>
+
+<h2>Student Registration</h2>
+
+<p style="color:var(--muted);margin-top:5px;">
+Fill in your details to register for an event
+</p>
+
+</div>
+
+</div>
+
+
+<div class="form-container">
+
+<form id="registrationForm">
+
+<div class="form-grid">
+
+<div class="input-group">
+
+<label>Student Name</label>
+
+<input
+type="text"
+id="studentName"
+placeholder="Enter your full name"
+required
+>
+
+</div>
+
+
+<div class="input-group">
+
+<label>PRN / Roll Number</label>
+
+<input
+type="text"
+id="prn"
+placeholder="Enter PRN"
+required
+>
+
+</div>
+
+
+<div class="input-group">
+
+<label>Email Address</label>
+
+<input
+type="email"
+id="email"
+placeholder="student@example.com"
+required
+>
+
+</div>
+
+
+<div class="input-group">
+
+<label>Select Event</label>
+
+<select id="eventSelect" required>
+
+<option value="">
+-- Select Event --
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<button
+type="submit"
+class="register-btn"
+>
+✓ Register for Event
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+REGISTERED STUDENTS
+========================= -->
+
+<section class="section">
+
+<div class="section-title">
+
+<div>
+
+<h2>Registered Students</h2>
+
+<p style="color:var(--muted);margin-top:5px;">
+Manage all event registrations
+</p>
+
+</div>
+
+</div>
+
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>PRN</th>
+<th>Student</th>
+<th>Email</th>
+<th>Event</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="registrationTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+</div>
+
+</main>
+
+
+<footer>
+
+© 2026 Campus Event Hub • Built with HTML, CSS, JavaScript & jQuery
+
+</footer>
+
+
+<!-- Toast -->
+<div id="toast"></div>
+
+
+<script>
+
+/* =========================================
+EVENT DATA
+========================================= */
+
+let events = [];
+
+
+/*
+This simulates AJAX-style asynchronous
+loading of data.
+
+In a real project, this can be replaced
+with:
+
+$.ajax({
+url: "events.json",
+...
+});
+*/
+
+function loadEvents() {
+
+$("#eventsContainer").html(`
+<div class="loading">
+<div class="spinner"></div>
+Loading events...
+</div>
+`);
+
+setTimeout(function() {
+
+events = [
+
+{
+id: 1,
+name: "AI & Machine Learning Workshop",
+date: "15 October 2026",
+venue: "Seminar Hall",
+seats: 50
+},
+
+{
+id: 2,
+name: "Web Development Bootcamp",
+date: "18 October 2026",
+venue: "Lab 6",
+seats: 50
+},
+
+{
+id: 3,
+name: "Hackathon 2026",
+date: "25 October 2026",
+venue: "Innovation Lab",
+seats: 50
+}
+
+];
+
+displayEvents();
+
+populateEventSelect();
+
+updateStats();
+
+}, 900);
+
+}
+
+
+/* =========================================
+DISPLAY EVENTS
+========================================= */
+
+function displayEvents(search = "") {
+
+let html = "";
+
+const filteredEvents = events.filter(function(event) {
+
+return event.name
+.toLowerCase()
+.includes(search.toLowerCase());
+
+});
+
+
+if (filteredEvents.length === 0) {
+
+$("#eventsContainer").html(`
+<div class="empty">
+No events found.
+</div>
+`);
+
+return;
+
+}
+
+
+filteredEvents.forEach(function(event) {
+
+let lowSeat = event.seats <= 10;
+
+html += `
+
+<div class="event-card">
+
+<div class="event-top">
+
+<div class="event-number">
+${String(event.id).padStart(2, "0")}
+</div>
+
+<h3>
+${event.name}
+</h3>
+
+</div>
+
+
+<div class="event-body">
+
+<div class="event-info">
+📅
+<span>
+<strong>${event.date}</strong>
+</span>
+</div>
+
+<div class="event-info">
+📍
+<span>
+${event.venue}
+</span>
+</div>
+
+<span class="seat ${lowSeat ? "low" : ""}">
+🪑 ${event.seats} seats available
+</span>
+
+
+<button
+class="select-btn"
+onclick="selectEvent(${event.id})"
+${event.seats <= 0 ? "disabled" : ""}
+>
+
+${event.seats <= 0
+? "Event Full"
+: "Select Event"}
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+$("#eventsContainer").html(html);
+
+}
+
+
+/* =========================================
+POPULATE SELECT
+========================================= */
+
+function populateEventSelect() {
+
+let options = `
+<option value="">
+-- Select Event --
+</option>
+`;
+
+events.forEach(function(event) {
+
+options += `
+
+<option value="${event.id}"
+${event.seats <= 0 ? "disabled" : ""}>
+
+${event.name}
+(${event.seats} seats)
+
+</option>
+
+`;
+
+});
+
+$("#eventSelect").html(options);
+
+}
+
+
+/* =========================================
+SELECT EVENT
+========================================= */
+
+function selectEvent(id) {
+
+$("#eventSelect").val(id);
+
+$("html, body").animate({
+
+scrollTop:
+$("#registrationForm").offset().top - 100
+
+}, 500);
+
+$("#studentName").focus();
+
+showMessage(
+"Event selected. Complete your registration.",
+false
+);
+
+}
+
+
+/* =========================================
+FORM SUBMISSION
+========================================= */
+
+$("#registrationForm").on("submit", function(e) {
+
+e.preventDefault();
+
+
+const name =
+$("#studentName").val().trim();
+
+const prn =
+$("#prn").val().trim();
+
+const email =
+$("#email").val().trim();
+
+const eventId =
+$("#eventSelect").val();
+
+
+/* Validation */
+
+if (name.length < 3) {
+
+showMessage(
+"Please enter a valid student name.",
+true
+);
+
+return;
+
+}
+
+
+if (prn.length < 3) {
+
+showMessage(
+"Please enter a valid PRN/Roll Number.",
+true
+);
+
+return;
+
+}
+
+
+if (!email.includes("@")) {
+
+showMessage(
+"Please enter a valid email address.",
+true
+);
+
+return;
+
+}
+
+
+if (!eventId) {
+
+showMessage(
+"Please select an event.",
+true
+);
+
+return;
+
+}
+
+
+/* Get existing registrations */
+
+let registrations =
+JSON.parse(
+localStorage.getItem("registrations")
+) || [];
+
+
+/* Duplicate PRN check */
+
+const duplicate = registrations.some(
+function(student) {
+
+return student.prn.toLowerCase()
+=== prn.toLowerCase();
+
+}
+);
+
+
+if (duplicate) {
+
+showMessage(
+"This PRN is already registered.",
+true
+);
+
+return;
+
+}
+
+
+/* Find selected event */
+
+const selectedEvent =
+events.find(function(event) {
+
+return event.id == eventId;
+
+});
+
+
+if (!selectedEvent) {
+
+showMessage(
+"Event not found.",
+true
+);
+
+return;
+
+}
+
+
+if (selectedEvent.seats <= 0) {
+
+showMessage(
+"Sorry, this event is full.",
+true
+);
+
+return;
+
+}
+
+
+/* Create registration */
+
+const registration = {
+
+id: Date.now(),
+
+name: name,
+
+prn: prn,
+
+email: email,
+
+eventId: selectedEvent.id,
+
+event: selectedEvent.name
+
+};
+
+
+registrations.push(registration);
+
+
+/* Save in localStorage */
+
+localStorage.setItem(
+"registrations",
+JSON.stringify(registrations)
+);
+
+
+/* Reduce available seats */
+
+selectedEvent.seats--;
+
+
+localStorage.setItem(
+"events",
+JSON.stringify(events)
+);
+
+
+/* Refresh UI */
+
+displayEvents();
+
+populateEventSelect();
+
+displayRegistrations();
+
+updateStats();
+
+
+/* Clear form */
+
+$("#registrationForm")[0].reset();
+
+
+showMessage(
+"Registration successful! 🎉",
+false
+);
+
+});
+
+
+/* =========================================
+DISPLAY REGISTRATIONS
+========================================= */
+
+function displayRegistrations() {
+
+const registrations =
+JSON.parse(
+localStorage.getItem("registrations")
+) || [];
+
+
+if (registrations.length === 0) {
+
+$("#registrationTable").html(`
+
+<tr>
+<td colspan="5" class="empty">
+No registrations yet.
+</td>
+</tr>
+
+`);
+
+return;
+
+}
+
+
+let html = "";
+
+
+registrations.forEach(function(student) {
+
+html += `
+
+<tr>
+
+<td>
+<strong>${student.prn}</strong>
+</td>
+
+<td>
+${student.name}
+</td>
+
+<td>
+${student.email}
+</td>
+
+<td>
+${student.event}
+</td>
+
+<td>
+
+<button
+class="delete-btn"
+onclick="deleteRegistration(${student.id})"
+>
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+$("#registrationTable").html(html);
+
+}
+
+
+/* =========================================
+DELETE REGISTRATION
+========================================= */
+
+function deleteRegistration(id) {
+
+let registrations =
+JSON.parse(
+localStorage.getItem("registrations")
+) || [];
+
+
+const student =
+registrations.find(function(item) {
+
+return item.id === id;
+
+});
+
+
+if (!student) return;
+
+
+if (!confirm(
+"Are you sure you want to delete this registration?"
+)) {
+
+return;
+
+}
+
+
+/* Remove registration */
+
+registrations =
+registrations.filter(function(item) {
+
+return item.id !== id;
+
+});
+
+
+localStorage.setItem(
+"registrations",
+JSON.stringify(registrations)
+);
+
+
+/* Increase seats again */
+
+const selectedEvent =
+events.find(function(event) {
+
+return event.id == student.eventId;
+
+});
+
+
+if (selectedEvent) {
+
+selectedEvent.seats++;
+
+}
+
+
+displayEvents();
+
+populateEventSelect();
+
+displayRegistrations();
+
+updateStats();
+
+
+showMessage(
+"Registration deleted successfully.",
+false
+);
+
+}
+
+
+/* =========================================
+UPDATE STATISTICS
+========================================= */
+
+function updateStats() {
+
+const registrations =
+JSON.parse(
+localStorage.getItem("registrations")
+) || [];
+
+
+let totalSeats = 0;
+
+
+events.forEach(function(event) {
+
+totalSeats += event.seats;
+
+});
+
+
+$("#totalRegistrations")
+.text(registrations.length);
+
+
+$("#totalEvents")
+.text(events.length);
+
+
+$("#totalSeats")
+.text(totalSeats);
+
+}
+
+
+/* =========================================
+SEARCH
+========================================= */
+
+$("#searchEvent").on("input", function() {
+
+const search =
+$(this).val();
+
+displayEvents(search);
+
+});
+
+
+/* =========================================
+TOAST MESSAGE
+========================================= */
+
+function showMessage(message, error = false) {
+
+const toast = $("#toast");
+
+
+toast
+.text(message)
+.removeClass("error")
+.addClass(error ? "error" : "")
+.addClass("show");
+
+
+setTimeout(function() {
+
+toast.removeClass("show");
+
+}, 3000);
+
+}
+
+
+/* =========================================
+DARK MODE
+========================================= */
+
+$("#themeBtn").on("click", function() {
+
+$("body").toggleClass("dark");
+
+
+if ($("body").hasClass("dark")) {
+
+$(this).text("☀️");
+
+localStorage.setItem(
+"theme",
+"dark"
+);
+
+} else {
+
+$(this).text("🌙");
+
+localStorage.setItem(
+"theme",
+"light"
+);
+
+}
+
+});
+
+
+/* =========================================
+LOAD SAVED THEME
+========================================= */
+
+if (
+localStorage.getItem("theme")
+=== "dark"
+) {
+
+$("body").addClass("dark");
+
+$("#themeBtn").text("☀️");
+
+}
+
+
+/* =========================================
+INITIALIZE APPLICATION
+========================================= */
+
+$(document).ready(function() {
+
+loadEvents();
+
+displayRegistrations();
+
+});
+
+</script>
+
+</body>
+</html>
