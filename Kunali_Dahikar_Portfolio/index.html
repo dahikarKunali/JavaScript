@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kunali Dahikar — Portfolio</title>
+<meta name="description" content="Portfolio of Kunali Dahikar — CSE student at SIT Nagpur: projects, skills, certificates and achievements.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👩‍💻</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="progress"></div>
+<header id="nav"><a href="#home" class="logo">K<span>.</span>D</a><nav id="links"></nav>
+  <button id="theme" aria-label="Toggle theme">🌙</button><button id="burger" aria-label="Menu">☰</button></header>
+
+<section id="home" class="hero">
+  <canvas id="net"></canvas><div class="blob b1"></div><div class="blob b2"></div>
+  <div class="wrap hero-in">
+    <div class="hero-txt">
+      <p class="hi">👋 Hello, I'm</p>
+      <h1>Kunali <span class="grad">Dahikar</span></h1>
+      <h2><span id="typed"></span><i class="caret"></i></h2>
+      <p class="lead" id="tagline"></p>
+      <div class="cta"><a class="btn pri" href="#projects">View Projects</a><a class="btn" id="resume" href="assets/Kunali_Dahikar_Resume.pdf" download>⬇ Download Résumé</a><a class="btn ghost" href="#contact">Contact Me</a></div>
+      <div class="social" id="heroSocial"></div>
+    </div>
+    <div class="hero-img"><div class="ring"></div><img src="assets/img/profile.jpg" alt="Kunali Dahikar"><span class="chip c1">🐍 Python</span><span class="chip c2">🤖 AI / ML</span><span class="chip c3">🔐 Security</span><span class="chip c4">⚛️ Web</span></div>
+  </div>
+  <a href="#about" class="scroll">scroll ↓</a>
+</section>
+
+<main>
+<section id="about"><div class="wrap"><h2 class="sec" data-n="01">About Me</h2>
+  <div class="grid2"><div id="aboutTxt" class="reveal"></div><div id="facts" class="facts reveal"></div></div>
+  <div class="stats" id="stats"></div></div></section>
+
+<section id="education" class="alt"><div class="wrap"><h2 class="sec" data-n="02">Education &amp; Academic Performance</h2>
+  <div class="edu reveal"><div class="dot"></div><div><h3>B.Tech — Computer Science &amp; Engineering</h3><p>Symbiosis Institute of Technology (SIT), Nagpur · Symbiosis International (Deemed University) · 2024 – Present</p></div></div>
+  <div class="grid2 acad">
+    <div class="reveal"><div class="tabs" id="semTabs"></div><div class="card" id="semBox"></div></div>
+    <div class="card reveal"><h3>GPA Trend</h3><div id="gpaChart" class="gchart"></div><p class="note" id="gpaNote"></p></div>
+  </div></div></section>
+
+<section id="skills"><div class="wrap"><h2 class="sec" data-n="03">Technical Skills</h2>
+  <div class="grid2"><div class="card reveal"><h3>Proficiency</h3><div id="bars"></div></div><div id="skillGroups" class="reveal"></div></div>
+  <h3 class="sub reveal">Coursework</h3><div class="tags reveal" id="course"></div></div></section>
+
+<section id="projects" class="alt"><div class="wrap"><h2 class="sec" data-n="04">Projects</h2>
+  <div class="filters" id="pFilter"></div><div class="cards" id="projGrid"></div></div></section>
+
+<section id="experience"><div class="wrap"><h2 class="sec" data-n="05">Professional Experience</h2><div id="intern" class="card intern reveal"></div></div></section>
+
+<section id="achievements" class="alt"><div class="wrap"><h2 class="sec" data-n="06">Achievements &amp; Certificates</h2><div class="certs" id="certGrid"></div></div></section>
+
+<section id="contributions"><div class="wrap"><h2 class="sec" data-n="07">Contributions &amp; Participation</h2><div class="cgrid" id="contrib"></div></div></section>
+
+<section id="gallery" class="alt"><div class="wrap"><h2 class="sec" data-n="08">Gallery</h2><div class="filters" id="gFilter"></div><div class="gal" id="galGrid"></div></div></section>
+
+<section id="career"><div class="wrap"><h2 class="sec" data-n="09">Career Interests &amp; Goals</h2>
+  <div class="grid2"><div class="card reveal"><h3>🎯 Career Interests</h3><p id="ci"></p></div><div class="card reveal"><h3>🚀 Career Goals</h3><p id="cg"></p></div></div><div class="tags big reveal" id="ctags"></div></div></section>
+
+<section id="contact" class="alt"><div class="wrap"><h2 class="sec" data-n="10">Get In Touch</h2>
+  <div class="grid2"><div class="reveal"><p class="lead">Interested in working together, or just want to say hi? My inbox is always open.</p><div id="cList" class="clist"></div></div>
+  <form class="card reveal" id="form"><input id="fn" placeholder="Your name" required><input id="fe" type="email" placeholder="Your email" required><textarea id="fm" rows="5" placeholder="Your message" required></textarea><button class="btn pri" type="submit">Send Message ✉</button></form></div></div></section>
+</main>
+
+<footer><p>Designed &amp; built by <b>Kunali Dahikar</b> · © <span id="yr"></span></p></footer>
+<button id="top" aria-label="Back to top">↑</button>
+<div id="lb"><button class="x" aria-label="Close">✕</button><button class="pv">‹</button><img alt=""><button class="nx">›</button><p id="lbc"></p></div>
+<script src="js/data.js"></script><script src="js/main.js"></script>
+</body></html>
