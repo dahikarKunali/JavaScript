@@ -66,7 +66,7 @@ const DATA = {
   ],
 
   internship: {
-    role: "Software Development Intern", org: "Blowhot Kitchen Appliances Pvt. Ltd.", place: "Indore, Madhya Pradesh", when: "1 June 2026 – 30 June 2026", guide: "Ms. Shikha Gade", cert: "assets/img/cert-internship.jpg",
+    role: "Software Development Intern", org: "Blowhot Kitchen Appliances Pvt. Ltd.", place: "Indore, Madhya Pradesh", when: "1 June 2026 – 30 June 2026", guide: "Ms. Shikha Gade", cert: "assets/IMG/cert-internship.jpg",
     points: ["Developed and tested RESTful APIs using Node.js and Express.js","Implemented CRUD operations and integrated MongoDB for data management","Built user authentication, password protection and protected routes","Connected backend to HTML, CSS & JavaScript frontend components","Tested APIs with Postman; added input validation and error handling","Used Git & GitHub for version control; debugging, integration testing and documentation"],
     tech: ["HTML","CSS","JavaScript","Node.js","Express.js","MongoDB","Postman","Git","GitHub"],
     learn: "Hands-on experience with the software development lifecycle, REST API architecture, database operations, authentication, debugging and collaborative development."
