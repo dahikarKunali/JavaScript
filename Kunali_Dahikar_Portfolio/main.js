@@ -1,6 +1,6 @@
 const $ = (s, e = document) => e.querySelector(s), $$ = (s, e = document) => [...e.querySelectorAll(s)];
-const D = DATA, L = D.links, img = n => `assets/img/${n}.jpg`;
 
+const D = DATA, L = D.links, img = n => `assets/IMG/${n}.jpg`;
 /* nav */
 const secs = [["home","Home"],["about","About"],["education","Education"],["skills","Skills"],["projects","Projects"],["experience","Experience"],["achievements","Certificates"],["contributions","Activities"],["gallery","Gallery"],["contact","Contact"]];
 $("#links").innerHTML = secs.map(([i, t]) => `<a href="#${i}">${t}</a>`).join("");
